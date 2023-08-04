@@ -9,20 +9,18 @@ function getComputerChoice(){
     return choice;
 }
 
-/*function getPlayerChoice(){
+function getPlayerChoice(){
     let playerChoice = prompt("Please select between rock, paper and scissors.")
     let choice = playerChoice.toLocaleLowerCase();
     return choice;
-}*/
+}
 
 function getWinningMessage(playerChoice,symbol){
-    winMessage = (playerChoice === symbol) ? "Player win" : "Computer Win";
+    winMessage = (playerChoice === symbol) ? "Player Win" : "Computer Win";
 }
 
 function playRound(playerSelection,ComputerSelection){
-    playerWinNumbers = 0
-    computerWinNumbers = 0
-
+    
     if((playerSelection === "rock" || ComputerSelection === "rock") && (playerSelection === "paper" || ComputerSelection === "paper")){
         getWinningMessage(playerSelection,"paper")
     } 
@@ -37,18 +35,28 @@ function playRound(playerSelection,ComputerSelection){
     }
     return winMessage;
 }
-console.log(playRound("rock","paper"));
-console.log(playRound("paper","rock"));
-console.log(playRound("rock","rock"));
-console.log(playRound("paper","paper"));
 
-console.log(playRound("scissors","paper"));
-console.log(playRound("paper","scissors"));
-console.log(playRound("scissors","scissors"));
-console.log(playRound("paper","paper"));
+function game(){
+    playerWinNumbers = 0;
+    computerWinNumbers = 0;
+    draws = 0;
+    for(let i = 0; i < 5; i++){
+        let winner = playRound(getPlayerChoice(),getComputerChoice());
+        switch(winner){
+            case "Player Win": playerWinNumbers++;break;
+            case "Computer Win": computerWinNumbers++;break;
+            default : draws++;break;
+        }
+        console.log(`${winner} number of match played: ${playerWinNumbers+computerWinNumbers+draws}, player win : ${playerWinNumbers}, computer win : ${computerWinNumbers}, draws : ${draws}`);        
+    }
+    if(playerWinNumbers > computerWinNumbers){
+        console.log("Player win the game!");
+    } else if (playerWinNumbers < computerWinNumbers){
+        console.log("Computer win the game!");
+    } else {
+        console.log("It's a draw!");
+    }
+}
 
-console.log(playRound("scissors","rock"));
-console.log(playRound("rock","scissors"));
-console.log(playRound("scissors","scissors"));
-console.log(playRound("rock","rock"));
 
+game();
