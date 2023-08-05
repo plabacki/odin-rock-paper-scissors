@@ -8,12 +8,12 @@ function getComputerChoice(){
     }
     return choice;
 }
-
+/*
 function getPlayerChoice(){
     let playerChoice = prompt("Please select between rock, paper and scissors.")
     let choice = playerChoice.toLocaleLowerCase();
     return choice;
-}
+}*/
 
 function getWinningMessage(playerChoice,symbol){
     winMessage = (playerChoice === symbol) ? "Player Win" : "Computer Win";
@@ -35,7 +35,7 @@ function playRound(playerSelection,ComputerSelection){
     }
     return winMessage;
 }
-
+/*
 function game(){
     playerWinNumbers = 0;
     computerWinNumbers = 0;
@@ -60,3 +60,13 @@ function game(){
 
 
 game();
+*/
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log(button.id);
+
+    });
+});
