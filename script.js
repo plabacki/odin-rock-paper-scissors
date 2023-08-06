@@ -4,23 +4,27 @@ function getComputerChoice(){
     switch(randomNumber){
         case 0: choice = "rock"; break;
         case 1: choice = "paper"; break;
-        case 2: choice = "scissor"; break;
+        case 2: choice = "scissors"; break;
     }
     return choice;
 }
-/*
-function getPlayerChoice(){
-    let playerChoice = prompt("Please select between rock, paper and scissors.")
-    let choice = playerChoice.toLocaleLowerCase();
-    return choice;
-}*/
+
+let playerWinNumbers = 0;
+let computerWinNumbers = 0;
+let draws = 0;
 
 function getWinningMessage(playerChoice,symbol){
     winMessage = (playerChoice === symbol) ? "Player Win" : "Computer Win";
+    if(winMessage === "Player Win"){
+        playerWinNumbers++;
+    } else {
+        computerWinNumbers++;
+    }
 }
 
 function playRound(playerSelection,ComputerSelection){
     
+
     if((playerSelection === "rock" || ComputerSelection === "rock") && (playerSelection === "paper" || ComputerSelection === "paper")){
         getWinningMessage(playerSelection,"paper")
     } 
@@ -32,41 +36,22 @@ function playRound(playerSelection,ComputerSelection){
     }  
     else{
         winMessage = "It's a draw";
+        draws++;
     }
-    return winMessage;
-}
-/*
-function game(){
-    playerWinNumbers = 0;
-    computerWinNumbers = 0;
-    draws = 0;
-    for(let i = 0; i < 5; i++){
-        let winner = playRound(getPlayerChoice(),getComputerChoice());
-        switch(winner){
-            case "Player Win": playerWinNumbers++;break;
-            case "Computer Win": computerWinNumbers++;break;
-            default : draws++;break;
-        }
-        console.log(`${winner} number of match played: ${playerWinNumbers+computerWinNumbers+draws}, player win : ${playerWinNumbers}, computer win : ${computerWinNumbers}, draws : ${draws}`);        
-    }
-    if(playerWinNumbers > computerWinNumbers){
-        console.log("Player win the game!");
-    } else if (playerWinNumbers < computerWinNumbers){
-        console.log("Computer win the game!");
-    } else {
-        console.log("It's a draw!");
-    }
+    console.log(playerSelection,ComputerSelection);
+    currentRound.innerHTML = winMessage;
+    numberOfWin.innerHTML = `Number of match played: ${playerWinNumbers+computerWinNumbers+draws}, player win : ${playerWinNumbers}, computer win : ${computerWinNumbers}, draws : ${draws}`;
+
 }
 
+const buttons = document.querySelectorAll("button");
 
-game();
-*/
+buttons.forEach((button) => button.addEventListener("click", () => playRound(button.id,getComputerChoice())));
 
-const buttons = document.querySelectorAll('button');
+const currentRound = document.querySelector("#currentRound");
 
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        console.log(button.id);
+const numberOfWin = document.querySelector("#numberOfWin");
 
-    });
-});
+const displayer = document.querySelector("#displayer");
+displayer.append(currentRound, numberOfWin);
+
